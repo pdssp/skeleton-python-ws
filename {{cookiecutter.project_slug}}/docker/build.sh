@@ -16,4 +16,7 @@
 #
 # You should have received a copy of the {% if cookiecutter.open_source_license == 'GNU General Public License v3' -%}GNU General Public License{% elif cookiecutter.open_source_license == 'GNU Lesser General Public License v3' -%}GNU Lesser General Public License v3 {% elif cookiecutter.open_source_license == 'GNU Affero General Public License v3' -%}GNU Affero General Public License v3{% endif %}
 # along with {{cookiecutter.project_name}}.  If not, see <https://www.gnu.org/licenses/>.
-docker build --no-cache=true --build-arg SSH_PRIVATE_KEY="`more ~/.ssh/id_rsa`" -t dev/{{cookiecutter.project_slug}} .
+git_hash=`git log --pretty=format:%h -n 1`
+version=`python setup.py --version`
+docker build --no-cache=true --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S) --build-arg VCS_REF=${git_hash} --build-arg BUILD_VERSION=${version} -t pole_surfaces/{{cookiecutter.project_slug}} .
+

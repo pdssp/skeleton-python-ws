@@ -19,15 +19,18 @@ FROM ubuntu:latest
 
 LABEL maintainer="{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"
 
+# Runtime distribution filename
 ARG BUILD_DATE
+ARG VCS_REF
 ARG VERSION
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \
     org.label-schema.schema-version="1.0" \
     org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.name="cdm" \
+    org.label-schema.name="{{ cookiecutter.project_slug }}" \
     org.label-schema.description="{{ cookiecutter.project_short_description }}" \
     org.label-schema.url="https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}" \
     org.label-schema.vcs-url="https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}" \
@@ -45,7 +48,10 @@ RUN apt-get update && \
     cd {{ cookiecutter.project_slug }} && \
     make
 
-# Custom prompt
-RUN echo 'export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@platoscope-dev\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$"' >> /etc/bash.bashrc
+# Expose the http server on 8080
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
 CMD ["{{cookiecutter.project_slug}}"]

@@ -39,7 +39,7 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
+From sources (without virtual environment)
 ------------
 
 The sources for {{ cookiecutter.project_name }} can be downloaded from the `Github repo`_.
@@ -68,6 +68,45 @@ Once you have a copy of the source, you can install it with:
 .. _tarball: https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}/tarball/master
 
 
+From sources (with virtual environment)
+------------
+
+The sources for {{ cookiecutter.project_name }} can be downloaded from the `Github repo`_.
+
+You can either clone the public repository:
+
+.. code-block:: console
+
+    $ git clone git://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}
+
+Or download the `tarball`_:
+
+.. code-block:: console
+
+    $ curl -OJL https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}/tarball/master
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: console
+
+    $ cd {{ cookiecutter.project_slug }}
+    $ make prepare-dev
+    $ source .{{ cookiecutter.project_slug }}
+    $ make
+
+
+.. _Github repo: https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}
+.. _tarball: https://github.com/pole-surfaces-planetaires/{{ cookiecutter.project_slug }}/tarball/master
+
+
+Docker
+------
+
+.. code-block:: console
+
+        $ make docker-build
+        $ make docker-deploy
+        
 
 Development
 -----------
@@ -90,9 +129,9 @@ To get more information about the preconfigured tasks:
 Usage
 -----
 
-To use {{ cookiecutter.project_name }} in a project::
+.. code-block:: console
 
-    import {{ cookiecutter.project_slug }}
+    	$ {{ cookiecutter.project_slug }}
 
 
 
