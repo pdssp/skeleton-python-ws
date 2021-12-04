@@ -41,7 +41,7 @@ Usage:\n
 	-------------------------------------------------------------------------\n
 	make docker-build\t\t 		Build the docker image\n
 	make docker-deploy\t\t 	Deploy the docker image\n
-	\n	
+	\n
 	-------------------------------------------------------------------------\n
 	\t\tOthers\n
 	-------------------------------------------------------------------------\n
@@ -98,19 +98,23 @@ tests:  ## Run tests
 	pytest -ra
 
 tox:
-	tox -e py38
+	tox -e py37
 
 doc:
+	make licences > third_party.txt
+	rm -rf docs/source/_static/coverage
+	pytest -ra --html=docs/source/_static/report.html
+	coverage html -d docs/source/_static/coverage
 	make html -C docs
 
 doc-pdf:
 	make doc && make latexpdf -C docs
 
 visu-doc-pdf:
-	make doc-pdf && acroread docs/build/latex/{{cookiecutter.project_slug}}.pdf
+	acroread docs/build/latex/{{cookiecutter.project_slug}}.pdf
 
 visu-doc:
-	make doc && firefox docs/build/html/index.html
+	firefox docs/build/html/index.html
 
 release:
 	python3 setup.py sdist
@@ -138,9 +142,9 @@ update_req_dev:
 
 pyclean:
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
-	
+
 docker-build:
 	sh docker/build.sh
 
 docker-deploy:
-	sh docker/deploy.sh	
+	sh docker/deploy.sh

@@ -106,7 +106,7 @@ Docker
 
         $ make docker-build
         $ make docker-deploy
-        
+
 
 Development
 -----------
@@ -131,6 +131,7 @@ Usage
 
 .. code-block:: console
 
+        $ export API_TEST=True
     	$ {{ cookiecutter.project_slug }}
 
 
